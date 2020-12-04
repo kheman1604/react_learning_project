@@ -13,11 +13,21 @@ app.use(bodyparser.json());
 app.use("/react",ReactRouter);
 app.use(express.urlencoded({extended:true}));
 app.use(bodyparser.urlencoded({extended:true}));
-app.use(express.static(path.join(__dirname, '../testapp/build')))
-app.get('*', (req, res) => {
-    res.sendFile(path.join(__dirname, '../testsapp/build'))
-})
+app.use(express.static(path.join(__dirname,"testapp")));
 
+
+if(process.env.NODE_ENV==='production')
+{
+    app.use(express.static(path.join(__dirname,"testapp","build")));
+
+    app.get("*",(req,resp)=>{
+        resp.sendFile(path.join(__dirname,"testapp","build","index.html"));
+    })
+}
+
+app.get("/",(req,resp)=>{
+    resp.send("HELLO");
+});
 
 app.listen(PORT,()=>{
     console.log("Server Started");

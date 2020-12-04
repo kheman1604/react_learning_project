@@ -4,9 +4,11 @@
   "description": "",
   "main": "index.js",
   "scripts": {
+    "start": "if-env NODE_ENV=production && npm run start:prod || npm run start:dev",
+    "start:prod": "node Server.js",
+    "install": "cd testapp && yarn install",
     "test": "echo \"Error: no test specified\" && exit 1",
-    "start":"node Server.js",
-    "heroku-postbuild": "NPM_CONFIG_PRODUCTION=false npm install npm && run build"
+    "heroku-postbuild": "npm run build"
   },
   "author": "",
   "license": "ISC",
