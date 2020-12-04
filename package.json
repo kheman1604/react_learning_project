@@ -8,7 +8,7 @@
     "start:prod": "node Server.js",
     "install": "cd testapp && yarn install",
     "test": "echo \"Error: no test specified\" && exit 1",
-    "heroku-postbuild": "npm run build"
+    "heroku-postbuild": "yarn build"
   },
   "author": "",
   "license": "ISC",
