@@ -1,6 +1,8 @@
 var mongoose=require("mongoose");
+require('dotenv').config();
 
-const dbConfig = "mongodb+srv://KhemanJain:Kheman1604@cluster.qlg81.mongodb.net/db2020";
+
+const dbConfig = process.env.MONGODB_URI;
 mongoose.connect(dbConfig, {useNewUrlParser: true , useUnifiedTopology: true , useCreateIndex: true}).then(()=>{
     console.log("Connected");
 }).catch((err)=>{

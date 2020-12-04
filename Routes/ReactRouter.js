@@ -40,6 +40,55 @@ app.post("/save-post",async (req,resp)=>{
         resp.send({"result":result,"msg":"success"});
         console.log(result);
     });
+});
+
+
+app.post("/delete",(req,resp)=>{
+    UserModel.deleteOne({uid:req.body.uid}).then((result)=>
+    {
+        console.log(result);
+        if(result.deletedCount!=0)
+        resp.json({msg:"Deleted"});
+        else
+        resp.json({msg:"Invalid id/fn"});
+    });
 })
+
+app.post("/update-post",(req,resp)=>{
+    UserModel.update({uid:req.body.uid},{$set:{pwd:req.body.pwd,mob:req.body.mob}}).then(function(result)
+    {
+        console.log(result);
+              if(result.nModified!=0)
+                resp.json({msg:"Updated"});
+               else
+               resp.json({msg:"Invalid id"});
+        
+    });
+});
+
+app.post("/fetch",(req,resp)=>{
+    UserModel.find({uid:req.body.uid})
+    .then((result)=>{
+        console.log(result.length+" Records Found");
+        console.log(result);
+        resp.json(result);
+    })
+    .catch((err)=>{
+        resp.json({errmsg:err});
+    })
+})
+
+app.post("/fetchAll",(req,resp)=>{
+    UserModel.find()
+    .then((result)=>{
+        console.log(result.length+" Records Found");
+        resp.json(result);
+    })
+    .catch((err)=>{
+        resp.json({errmsg:err});
+    })
+})
+
+
 
 module.exports=app;

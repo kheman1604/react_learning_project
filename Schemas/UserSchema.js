@@ -1,15 +1,7 @@
 var mongoose=require("mongoose");
 
-// var UserSchemaObj=new mongoose.Schema({
-//     uid :{type:String,index:true,unique:true,required:true},
-//         pwd : String,
-//         mob: String,
-//         dos: {type:Date,default:Date.now }
-       
-// });
-
 var UserSchemaObj=new mongoose.Schema({
-    uid :String,
+    uid :{type:String,index:true,unique:true,required:true},
         pwd : String,
         mob: String,
         dos: {type:Date,default:Date.now }
@@ -18,6 +10,6 @@ var UserSchemaObj=new mongoose.Schema({
 
 
 
-var UserModel=mongoose.model("Users",UserSchemaObj);
+var UserModel=mongoose.model("UsersNew",UserSchemaObj);
 
 module.exports=UserModel;
