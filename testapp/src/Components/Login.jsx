@@ -24,7 +24,7 @@ function Login() {
 
           event.preventDefault();
           var url =
-          "/react/save?uid=" +
+          "api/react/save?uid=" +
           userObj.uid +
           "&pwd=" +
           userObj.pwd +
@@ -36,7 +36,7 @@ function Login() {
       }
 
       async function doSavePost() {
-        var url = "/react/save-post";
+        var url = "api/react/save-post";
         var response = await axios.post(url, userObj);
         await alert(JSON.stringify(response.data));
       }

@@ -10,7 +10,7 @@ var PORT=process.env.PORT || 8000;
 var app=express();
 app.use(cors());
 app.use(bodyparser.json());
-app.use("/react",ReactRouter);
+app.use("/api/react",ReactRouter);
 app.use(express.urlencoded({extended:true}));
 app.use(bodyparser.urlencoded({extended:true}));
 app.use(express.static(path.join(__dirname,"testapp")));
