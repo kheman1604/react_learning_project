@@ -7,9 +7,10 @@ function Login() {
         uid: "Enter Uid",
         pwd: "Enter Password",
         mob: "Enter Mobile",
+        file: null
       });
     var [responseMsg,setResponse]=useState("*");
-    var [jsonAry, fillJsonArray] = useState([{"fn":"Aman"}]);
+
 
       function doUpdate(event)
       {
@@ -19,6 +20,11 @@ function Login() {
           ...userObj,
           [name]: value,
         });
+      }
+
+      function dofileSave(event)
+      {
+        setUserObj({...userObj,["file"]:event.target.files[0]});
       }
 
       async function doSave(event)
@@ -74,25 +80,32 @@ function Login() {
 
         async function doFetchAll()
         {
-          // var url="api/react/fetchAll";
-          // var response=await axios.post(url);
-          // if(response.data.length==0)
-          //     {
-          //       setResponse("empty");
-          //         return;
-          //     }
-          //  fillJsonArray(response.data);
-          //  alert(response.data.length);
-
           window.location.href="/Card-Show";
- 
+        }
+
+        async function doSavePostImage()
+        {
+          var url="api/react/save-with-img";
+          // Appending the Data into Form-Data Object 
+
+          // Its Necessary to Send Data As Form-Data to Send the Image Data to Server
+          var fd=new FormData();
+          for ( var key in userObj) {
+            fd.append(key, userObj[key]);
+          }
+          var response = await axios.post(url, fd,{ headers: {
+            'Content-Type': 'multipart/form-data'
+          }});
+          await alert(JSON.stringify(response.data));
+          setResponse(response.data.msg);
+
         }
 
 
     return (
         <div>
             <center>
-            <form method="POST" onSubmit={doSave}>
+            <form method="POST" onSubmit={doSave} encType="multipart/form-data">
                 <label>Uid: </label>
                 <input type="text" name="uid" value={userObj.uid} onChange={doUpdate}></input> 
                 <input type="button" value="Fetch" onClick={doFetcOne}></input>
@@ -104,11 +117,16 @@ function Login() {
                 <input type="text" name="mob" value={userObj.mob} onChange={doUpdate}></input> 
                 <br></br>
                 <br></br>
-                <input type="submit" value="Save"></input> 
+                <input type="file" name="ppic" onChange={dofileSave}></input>
+                <br></br>
+                <br></br>
+                <input type="submit" value="Save (Sumbit) "></input> 
                 <input type="button" value="Save Record (POST)" onClick={doSavePost}></input>
                 <input type="button" value="Delete Record" onClick={doDelete}></input>
                 <input type="button" value="Update Record" onClick={doUpdatePost}></input>
                 <input type="button" value="Fetch All Records" onClick={doFetchAll}></input>
+                <input type="button" value="Fetch All Records" onClick={doFetchAll}></input>
+                <input type="button" value="Save Record with Image(POST)" onClick={doSavePostImage}></input>
             </form>
             <center>
               <p>

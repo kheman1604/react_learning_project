@@ -5,7 +5,7 @@ import axios from 'axios';
 
 function CardShow() {
 
-    var [jsonAry, fillJsonArray] = useState([{"fn":"Aman"}]);
+    var [jsonAry, fillJsonArray] = useState([{"uid":"Aman"}]);
     
     useEffect(async ()=>{
         var url="api/react/fetchAll";
