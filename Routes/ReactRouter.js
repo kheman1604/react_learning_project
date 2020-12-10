@@ -99,13 +99,14 @@ app.post("/save-with-img",async (req,resp)=>{
     if(req.files==null)
     {
         req.body.picname="nopic.jpg";
-        resp.end("No file Selected...");
     }
     else
     {
-        req.body.picname=req.files.file.name;
-
-        var fullPath=path.join(process.cwd(),"uploads",req.body.picname);
+        var filename=req.files.file.name;
+        fileext=filename.substring(filename.lastIndexOf("."),filename.length);
+        
+        req.body.picname=((req.body.uid).replace(/\s/g, '')+fileext);
+        var fullPath=path.join(__dirname,"../","testapp","public","uploads",req.body.picname);
         req.files.file.mv(fullPath,(err)=>{
         if(err)
             console.log(err);
