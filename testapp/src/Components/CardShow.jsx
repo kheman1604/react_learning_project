@@ -2,10 +2,12 @@ import React, { useState,useEffect} from "react";
 import {Container,Row,Col,Card} from "react-bootstrap";
 import "bootstrap/dist/css/bootstrap.min.css";
 import axios from 'axios';
+import Loader from "./Loader";
 
 function CardShow() {
 
     var [jsonAry, fillJsonArray] = useState([]);
+    var [loader,setLoader]=useState(false);
     
     useEffect(()=>{
 
@@ -14,7 +16,9 @@ function CardShow() {
         var url="api/react/fetchAll";
         var response=await axios.post(url);
         fillJsonArray(response.data);
+        setLoader(true);
       }
+     
       
       DoFecthData();
     },[])
@@ -26,7 +30,7 @@ function CardShow() {
  return (
     <>
     <center>
-      <Container>
+      {loader ? <Container>
         <Row>
         {jsonAry.map((obj,index) => {
               return (
@@ -45,7 +49,8 @@ function CardShow() {
               );
             })}
         </Row>
-      </Container>
+      </Container> : <Loader></Loader> }
+      
     </center>
     </>
   );
