@@ -5,7 +5,7 @@ import axios from 'axios';
 
 function CardShow() {
 
-    var [jsonAry, fillJsonArray] = useState([{"uid":"Aman"}]);
+    var [jsonAry, fillJsonArray] = useState([]);
     
     useEffect(()=>{
 
