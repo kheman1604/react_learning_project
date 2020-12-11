@@ -37,8 +37,13 @@ function EditUser() {
         doFetcOne(curruid);
       },[curruid])
       
-
-          
+      async function doEdit()
+      { 
+        var url = "/api/react/update-post";
+        var response = await axios.post(url, userObj);
+        alert(JSON.stringify(response.data));
+      }
+      
 
 
 
@@ -56,7 +61,7 @@ function EditUser() {
                 <input type="text" name="mob" value={userObj.mob} onChange={doUpdate}></input> 
                 <br></br>
                 <br></br>
-                <input type="submit" value="Save (Sumbit) "></input> 
+                <input type="button" value="Edit" onClick={doEdit}></input> 
             </form>
             </center>
         </div>
