@@ -44,6 +44,8 @@ function EditUser() {
         doFetcOne(curruid);
       },[curruid])
       
+
+      
       async function doEdit()
       { 
         if(Uplfile===undefined)
