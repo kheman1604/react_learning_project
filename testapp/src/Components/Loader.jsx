@@ -14,7 +14,8 @@ function Loader() {
         height:"100px",
         position:"fixed",
         left:"50%",
-        top:"50%"
+        top:"50%",
+        transform:`translate("-50%","-50%")`
     }
     return (
         <div style={loadercont}>

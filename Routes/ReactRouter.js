@@ -129,4 +129,34 @@ app.post("/save-with-img",async (req,resp)=>{
     
 })
 
+app.post("/update-with-img",async(req,resp)=>{
+    
+
+    
+        var filename=req.files.newpic.name;
+        fileext=filename.substring(filename.lastIndexOf("."),filename.length);
+        
+        req.body.picname=((req.files.newpic.name).replace(/\s/g, '')+req.body.uid+fileext);
+        var fullPath=path.join(__dirname,"../","testapp","public","uploads",req.body.picname);
+        req.files.newpic.mv(fullPath,(err)=>{
+        if(err)
+            console.log(err);
+                else
+                {
+                    console.log("File moved...");
+                }
+        })
+
+    await UserModel.update({uid:req.body.uid},{$set:{pwd:req.body.pwd,mob:req.body.mob,picname:req.body.picname}}).then(function(result)
+    {
+        console.log(result);
+              if(result.nModified!=0)
+                resp.json({msg:"Updated"});
+               else
+               resp.json({msg:"Invalid id"});
+        
+    });
+    
+});
+
 module.exports=app;
